@@ -3,7 +3,7 @@ import datetime
 from list import TodoList
 
 
-class ListGuy:
+class Communicator:
     def __init__(self, list_assignment: TodoList) -> None:
         self.window: sg.Window
         self.list = list_assignment
