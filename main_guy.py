@@ -51,7 +51,7 @@ class Communicator:
                 sg.Button('delete', key='-delete_assignment-')
             ],
         ]
-        self.window = sg.Window('ToDo List', layout_page)
+        self.window = sg.Window('ToDo List', layout_page, size=(1200, 400))
 
 
     def _refresh_data(self) -> None:
