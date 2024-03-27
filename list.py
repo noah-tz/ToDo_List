@@ -12,7 +12,13 @@ class TodoList:
         self.assignments[Assignment.assignment_ID] = new_assignment
         Assignment.assignment_ID +=1
 
-    def delete_assignment(self, ID: int) -> None:
+    def edit_assignment(self, ID: int, new_description: str, new_day: int, new_month: int, new_year: int) -> bool:
+        if ID in self.assignments:
+            self.assignments[ID] = Assignment(new_description, new_day, new_month, new_year)
+            return True
+        return False
+
+    def delete_assignment(self, ID: int) -> bool:
         return bool(self.assignments.pop(ID, None))
         
     def get_assignments(self) -> list:
