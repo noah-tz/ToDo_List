@@ -18,13 +18,13 @@ class Gui:
                 values=data,
                 headings=columns_table,
                 key='-TABLE_ASSIGNMENTS-',
-                size=(20, 20),
+                size=(20, 13),
             )
         ]
         year_today = datetime.datetime.now().year
         layout_page = [
             [layout_table_assignment],
-            [sg.HSep(color='black')],
+            [sg.HSep(color='black', pad=20)],
             [
                 [sg.Text('enter description for new assignment')],
                 [sg.Input(key='-description_for_new_assignment-')],
@@ -33,7 +33,7 @@ class Gui:
                 sg.Text('select year'), sg.DropDown(list(range(year_today, year_today +10)), key='-year_new_assignment-', default_value=year_today),
                 sg.Button('add', key='-add_assignment-')]
             ],
-            [sg.HSep(color='black')],
+            [sg.HSep(color='black', pad=20)],
             [
                 [sg.Text("enter assignment ID to edit"),
                 sg.Input(key='-ID_to_edit-', size=7)],
@@ -44,14 +44,14 @@ class Gui:
                 sg.Text('select year'), sg.DropDown(list(range(year_today, year_today +10)), key='-year_edit_assignment-', default_value=year_today),
                 sg.Button('edit', key='-edit_assignment-')]
             ],
-            [sg.HSep(color='black')],
+            [sg.HSep(color='black', pad=20)],
             [
                 sg.Text("enter assignment ID to delete"),
                 sg.Input(key='-ID_to_delete-', size=7),
                 sg.Button('delete', key='-delete_assignment-')
             ],
         ]
-        self._window = sg.Window('ToDo List', layout_page, size=(500, 600))
+        self._window = sg.Window('ToDo List', layout_page, size=(550, 600))
 
 
     def refresh_gui(self, data) -> None:
