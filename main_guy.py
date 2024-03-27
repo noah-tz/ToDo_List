@@ -63,38 +63,39 @@ class ListGuy:
     def handel_event(self) -> None:
         while True:
             event, values = self.window.read()
-            if event == sg.WINDOW_CLOSED:
-                break
-            elif (
-                event == '-delete_assignment-' and
-                values['-ID_to_delete-'].isdigit() and
-                self.list.delete_assignment(int(values['-ID_to_delete-']))
-            ):
-                self._refresh_data()
-            elif event == '-add_assignment-':
-                description = values['-description_for_new_assignment-']
-                self.list.add_assignment(
-                    description if description else 'Empty',
-                    int(values['-day_new_assignment-']),
-                    int(values['-month_new_assignment-']),
-                    int(values['-year_new_assignment-'])
-                )
-                self._refresh_data()
-            elif event == '-edit_assignment-':
-                description = values['-new_description-']
-                if(
-                    event == '-edit_assignment-' and
-                    values['-ID_to_edit-'].isdigit() and
-                    self.list.edit_assignment(
-                        int(values['-ID_to_edit-']),
+            match event:
+                case sg.WINDOW_CLOSED:
+                    break
+                case '-delete_assignment-':
+                    if(
+                       values['-ID_to_delete-'].isdigit() and
+                        self.list.delete_assignment(int(values['-ID_to_delete-'])) 
+                    ):
+                        self._refresh_data()
+                case '-add_assignment-':
+                    description = values['-description_for_new_assignment-']
+                    self.list.add_assignment(
                         description if description else 'Empty',
-                        int(values['-day_edit_assignment-']),
-                        int(values['-month_edit_assignment-']),
-                        int(values['-year_edit_assignment-'])
+                        int(values['-day_new_assignment-']),
+                        int(values['-month_new_assignment-']),
+                        int(values['-year_new_assignment-'])
                     )
-                ):
                     self._refresh_data()
-            
+                case '-edit_assignment-':
+                    description = values['-new_description-']
+                    if(
+                        event == '-edit_assignment-' and
+                        values['-ID_to_edit-'].isdigit() and
+                        self.list.edit_assignment(
+                            int(values['-ID_to_edit-']),
+                            description if description else 'Empty',
+                            int(values['-day_edit_assignment-']),
+                            int(values['-month_edit_assignment-']),
+                            int(values['-year_edit_assignment-'])
+                        )
+                    ):
+                        self._refresh_data()
+      
         self.window.close()
                 
 
