@@ -4,13 +4,13 @@ import PySimpleGUI as sg
 
 class Program:
     def __init__(self) -> None:
-        self._list_assignment = TodoList()
-        self._data = self._list_assignment.get_assignments()
+        self._list_task = TodoList()
+        self._data = self._list_task.get_tasks()
         self._gui = Gui()
         self._gui.initial_window(self._data)
         
     def _refresh_data(self) -> None:
-        self._data = self._list_assignment.get_assignments()
+        self._data = self._list_task.get_tasks()
         self._gui.refresh_gui(self._data)
 
     def run(self) -> None:
@@ -19,33 +19,33 @@ class Program:
             match event:
                 case sg.WINDOW_CLOSED:
                     break
-                case '-delete_assignment-':
+                case '-delete_task-':
                     if(
                        values['-ID_to_delete-'].isdigit() and
-                        self._list_assignment.delete_assignment(int(values['-ID_to_delete-'])) 
+                        self._list_task.delete_task(int(values['-ID_to_delete-'])) 
                     ):
                         self._refresh_data()
                         
-                case '-add_assignment-':
-                    description = values['-description_for_new_assignment-']
-                    self._list_assignment.add_assignment(
+                case '-add_task-':
+                    description = values['-description_for_new_task-']
+                    self._list_task.add_task(
                         description if description else 'Empty',
-                        int(values['-day_new_assignment-']),
-                        int(values['-month_new_assignment-']),
-                        int(values['-year_new_assignment-'])
+                        int(values['-day_new_task-']),
+                        int(values['-month_new_task-']),
+                        int(values['-year_new_task-'])
                     )
                     self._refresh_data()
-                case '-edit_assignment-':
+                case '-edit_task-':
                     description = values['-new_description-']
                     if(
-                        event == '-edit_assignment-' and
+                        event == '-edit_task-' and
                         values['-ID_to_edit-'].isdigit() and
-                        self._list_assignment.edit_assignment(
+                        self._list_task.edit_task(
                             int(values['-ID_to_edit-']),
                             description if description else 'Empty',
-                            int(values['-day_edit_assignment-']),
-                            int(values['-month_edit_assignment-']),
-                            int(values['-year_edit_assignment-'])
+                            int(values['-day_edit_task-']),
+                            int(values['-month_edit_task-']),
+                            int(values['-year_edit_task-'])
                         )
                     ):
                         self._refresh_data()
