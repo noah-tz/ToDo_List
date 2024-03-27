@@ -72,25 +72,28 @@ class ListGuy:
             ):
                 self._refresh_data()
             elif event == '-add_assignment-':
+                description = values['-description_for_new_assignment-']
                 self.list.add_assignment(
-                    values['-description_for_new_assignment-'],
+                    description if description else 'Empty',
                     int(values['-day_new_assignment-']),
                     int(values['-month_new_assignment-']),
                     int(values['-year_new_assignment-'])
                 )
                 self._refresh_data()
-            elif (
-                event == '-edit_assignment-' and
-                values['-ID_to_edit-'].isdigit() and
-                self.list.edit_assignment(
-                    int(values['-ID_to_edit-']),
-                    values['-new_description-'],
-                    int(values['-day_edit_assignment-']),
-                    int(values['-month_edit_assignment-']),
-                    int(values['-year_edit_assignment-'])
-                )
-            ):
-                self._refresh_data()
+            elif event == '-edit_assignment-':
+                description = values['-new_description-']
+                if(
+                    event == '-edit_assignment-' and
+                    values['-ID_to_edit-'].isdigit() and
+                    self.list.edit_assignment(
+                        int(values['-ID_to_edit-']),
+                        description if description else 'Empty',
+                        int(values['-day_edit_assignment-']),
+                        int(values['-month_edit_assignment-']),
+                        int(values['-year_edit_assignment-'])
+                    )
+                ):
+                    self._refresh_data()
             
         self.window.close()
                 
